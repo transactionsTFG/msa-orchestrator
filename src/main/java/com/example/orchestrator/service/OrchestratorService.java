@@ -25,7 +25,10 @@ public class OrchestratorService {
     public void startUserCreation(UserDTO userDTO) {
         // 1. Enviar mensaje al UserService
         userDTO.setStatus("CREATE_USER");
-        jmsTemplate.convertAndSend(queueCreateUser, userDTO);
+        jmsTemplate.convertAndSend(queueCreateUser, userDTO, message -> {
+            message.setStringProperty("_type", "user");
+            return message;
+        });
     }
 
     public void continueWithTypeUserCreation(UserDTO userDTO) {
