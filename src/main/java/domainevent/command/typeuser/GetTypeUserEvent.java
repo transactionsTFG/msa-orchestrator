@@ -1,11 +1,11 @@
-package business.command.typeuser;
+package domainevent.command.typeuser;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import business.command.handler.EventHandler;
-import business.eventdispatcher.eventdispatcher.IJMSEventDispatcher;
-import business.eventdispatcher.qualifier.TypeUseJMSQualifier;
+import domainevent.command.handler.EventHandler;
+import domainevent.publisher.jmseventpublisher.IJMSEventPublisher;
+import domainevent.publisher.typeuserqueue.JMSTypeUserPublisherQualifier;
 import msa.commons.event.EventId;
 import msa.commons.microservices.typeuser.qualifier.GetTypeQualifierV2;
 
@@ -13,7 +13,7 @@ import msa.commons.microservices.typeuser.qualifier.GetTypeQualifierV2;
 @GetTypeQualifierV2
 public class GetTypeUserEvent implements EventHandler {
 
-    private IJMSEventDispatcher jmsEventDispatcher;
+    private IJMSEventPublisher jmsEventDispatcher;
 
     @Override
     public void handle(Object event) {
@@ -21,7 +21,7 @@ public class GetTypeUserEvent implements EventHandler {
     }
 
     @Inject
-    public void setJmsEventDispatcher(@TypeUseJMSQualifier IJMSEventDispatcher jmsEventDispatcher) {
+    public void setJmsEventDispatcher(@JMSTypeUserPublisherQualifier IJMSEventPublisher jmsEventDispatcher) {
         this.jmsEventDispatcher = jmsEventDispatcher;
     }
 }

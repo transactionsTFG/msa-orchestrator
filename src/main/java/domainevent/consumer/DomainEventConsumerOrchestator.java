@@ -1,4 +1,4 @@
-package listener;
+package domainevent.consumer;
 
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -9,12 +9,12 @@ import javax.jms.TextMessage;
 
 import com.google.gson.Gson;
 
-import business.command.handler.EventHandler;
-import integration.startup.EventHandlerRegistry;
+import domainevent.command.handler.EventHandler;
+import domainevent.registry.EventHandlerRegistry;
 import msa.commons.event.Event;
 
 @MessageDriven(mappedName = "jms/orchestatorQueue")
-public class OrchestatorListener implements MessageListener {
+public class DomainEventConsumerOrchestator implements MessageListener {
     private Gson gson;
     private EventHandlerRegistry eventHandlerRegistry;
 

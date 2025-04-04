@@ -1,11 +1,11 @@
-package business.command.user;
+package domainevent.command.user;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import business.command.handler.EventHandler;
-import business.eventdispatcher.eventdispatcher.IJMSEventDispatcher;
-import business.eventdispatcher.qualifier.UserJMSQualifier;
+import domainevent.command.handler.EventHandler;
+import domainevent.publisher.jmseventpublisher.IJMSEventPublisher;
+import domainevent.publisher.userqueue.JMSUserPublisherQualifier;
 import msa.commons.event.EventId;
 import msa.commons.microservices.user.qualifier.RollbackUserQualifier;
 
@@ -13,7 +13,7 @@ import msa.commons.microservices.user.qualifier.RollbackUserQualifier;
 @RollbackUserQualifier
 public class RollbackUserEvent implements EventHandler {
 
-    private IJMSEventDispatcher jmsEventDispatcher;
+    private IJMSEventPublisher jmsEventDispatcher;
 
     @Override
     public void handle(Object event) {
@@ -21,7 +21,7 @@ public class RollbackUserEvent implements EventHandler {
     }
     
     @Inject
-    public void setJmsEventDispatcher(@UserJMSQualifier IJMSEventDispatcher jmsEventDispatcher) {
+    public void setJmsEventDispatcher(@JMSUserPublisherQualifier IJMSEventPublisher jmsEventDispatcher) {
         this.jmsEventDispatcher = jmsEventDispatcher;
     }
     

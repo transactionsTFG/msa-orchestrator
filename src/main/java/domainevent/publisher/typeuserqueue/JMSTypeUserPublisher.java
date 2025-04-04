@@ -1,4 +1,4 @@
-package business.eventdispatcher;
+package domainevent.publisher.typeuserqueue;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -8,24 +8,23 @@ import javax.jms.Queue;
 
 import com.google.gson.Gson;
 
-import business.eventdispatcher.eventdispatcher.IJMSEventDispatcher;
-import business.eventdispatcher.qualifier.UserJMSQualifier;
-import integration.producer.qualifiers.UserQueue;
-import msa.commons.event.Event;
+import domainevent.publisher.jmseventpublisher.IJMSEventPublisher;
+import integration.producer.qualifiers.TypeUserQueue;
 import msa.commons.event.EventId;
+import msa.commons.event.Event;
 
 @Stateless
-@UserJMSQualifier
-public class JMSUserQueue implements IJMSEventDispatcher{
+@JMSTypeUserPublisherQualifier
+public class JMSTypeUserPublisher implements IJMSEventPublisher {
     private ConnectionFactory connectionFactory;
-    private Queue userServiceQueue;
+    private Queue typeUserServiceQueue;
     private Gson gson;
 
     @Override
-    public void publish(EventId eventId, Object data) {
+    public void publish(EventId eventId, Object data){
         try(JMSContext jmsContext = connectionFactory.createContext()) {
             Event sendMsg = new Event(eventId, data);
-            jmsContext.createProducer().send(this.userServiceQueue, this.gson.toJson(sendMsg));
+            jmsContext.createProducer().send(this.typeUserServiceQueue, this.gson.toJson(sendMsg));
         }
     }
 
@@ -33,15 +32,12 @@ public class JMSUserQueue implements IJMSEventDispatcher{
     public void setConnectionFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
-
     @Inject
-    public void setUserServiceQueue(@UserQueue Queue userServiceQueue) {
-        this.userServiceQueue = userServiceQueue;
+    public void setTypeUserServiceQueue(@TypeUserQueue Queue typeUserServiceQueue) {
+        this.typeUserServiceQueue = typeUserServiceQueue;
     }
-
     @Inject
     public void setGson(Gson gson) {
         this.gson = gson;
     }
-    
 }

@@ -1,4 +1,4 @@
-package integration.startup;
+package domainevent.registry;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-import business.command.handler.EventHandler;
+import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
 import msa.commons.microservices.typeuser.qualifier.GetTypeQualifierV2;
 import msa.commons.microservices.user.qualifier.CommitUserQualifier;
