@@ -1,1 +1,15 @@
-business\typeuser\TypeUser.class
+business\command\typeuser\GetTypeUserEvent.class
+integration\producer\GsonProducer.class
+integration\startup\EventHandlerRegistry.class
+business\command\user\RollbackUserEvent.class
+business\eventdispatcher\eventdispatcher\IJMSEventDispatcher.class
+integration\producer\ResourceProducer.class
+listener\OrchestatorListener.class
+business\eventdispatcher\JMSUserQueue.class
+business\command\user\CommitUserEvent.class
+business\command\handler\EventHandler.class
+business\eventdispatcher\JMSTypeUserQueue.class
+business\eventdispatcher\qualifier\UserJMSQualifier.class
+integration\producer\qualifiers\TypeUserQueue.class
+business\eventdispatcher\qualifier\TypeUseJMSQualifier.class
+integration\producer\qualifiers\UserQueue.class

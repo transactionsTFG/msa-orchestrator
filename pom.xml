@@ -31,13 +31,28 @@
     	<scope>provided</scope>
 	</dependency>
 
-	<dependency>
-        <groupId>jakarta.platform</groupId>
-        <artifactId>jakarta.jakartaee-api</artifactId>
-        <version>8.0.0</version>
-        <scope>provided</scope>
-    </dependency>
-
+  <dependency>
+    <groupId>org.mapstruct</groupId>
+    <artifactId>mapstruct</artifactId>
+    <version>1.6.3</version>
+  </dependency>
+  <dependency>
+    <groupId>org.mapstruct</groupId>
+    <artifactId>mapstruct-processor</artifactId>
+    <version>1.6.3</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.platform</groupId>
+    <artifactId>jakarta.jakartaee-api</artifactId>
+    <version>8.0.0</version>
+    <scope>provided</scope>
+  </dependency>
+   <dependency>
+    <groupId>ucm.tfg</groupId>
+    <artifactId>msa-commons</artifactId>
+    <version>1.0.5</version>
+   </dependency>
   </dependencies>
   <build>
     <finalName>msa-orchestator</finalName>
