@@ -8,8 +8,8 @@ import javax.jms.Queue;
 
 import domainevent.publisher.jmseventpublisher.BaseJMSEventPublisher;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
-import integration.consts.JMSQueueNames;
 import integration.producer.qualifiers.UserQueue;
+import msa.commons.consts.JMSQueueNames;
 
 
 @Stateless
@@ -25,6 +25,6 @@ public class JMSUserPublisher extends BaseJMSEventPublisher {
 
     @Override
     public String getQueueName() {
-        return JMSQueueNames.USER_SERVICE_QUEUE;
+        return JMSQueueNames.AGENCY_USER_SERVICE_QUEUE;
     }
 }
