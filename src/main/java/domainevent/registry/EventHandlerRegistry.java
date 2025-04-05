@@ -18,13 +18,13 @@ import msa.commons.microservices.user.qualifier.RollbackUserQualifier;
 @Startup
 public class EventHandlerRegistry {
     private Map<EventId, EventHandler> handlers = new EnumMap<>(EventId.class);
-    private EventHandler getTypeUserHandler;
+    private EventHandler validateTypeUserHandler;
     private EventHandler commitUserEventHandler;
     private EventHandler rollbackUserEventHandler;
 
     @PostConstruct
     public void init(){
-        this.handlers.put(EventId.GET_TYPE_USER, getTypeUserHandler);
+        this.handlers.put(EventId.VALIDATE_TYPE_USER, validateTypeUserHandler);
         this.handlers.put(EventId.CREATE_USER, commitUserEventHandler);
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
     }
@@ -34,8 +34,8 @@ public class EventHandlerRegistry {
     }
 
     @Inject
-    public void setGetTypeUserCommand(@GetTypeQualifierV2 EventHandler getTypeUserCommand) {
-        this.getTypeUserHandler = getTypeUserCommand;
+    public void setValidateTypeUserCommand(@GetTypeQualifierV2 EventHandler validateTypeUserHandler) {
+        this.validateTypeUserHandler = validateTypeUserHandler;
     }
 
     @Inject

@@ -22,6 +22,6 @@ public class GetTypeUserEvent extends BaseEventHandler {
     }
     @Override
     public EventId getEventId() {
-        return EventId.GET_TYPE_USER;
+        return EventId.VALIDATE_TYPE_USER;
     }
 }

@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import domainevent.command.handler.EventHandler;
 import domainevent.registry.EventHandlerRegistry;
 import msa.commons.consts.JMSQueueNames;
-import msa.commons.consts.PropertiesConsumer;
 import msa.commons.event.Event;
 
 @MessageDriven(mappedName = JMSQueueNames.AGENCY_ORCHESTATOR_QUEUE)
@@ -29,10 +28,10 @@ public class DomainEventConsumerOrchestator implements MessageListener {
          try {
             if(msg instanceof TextMessage m) {
                 Event event = this.gson.fromJson(m.getText(), Event.class);
-                LOGGER.info("Recibido en Cola {}, Evento Id: {}, Mensaje: {}", JMSQueueNames.AGENCY_ORCHESTATOR_QUEUE, event.getEventId(), event.getData());
+                LOGGER.info("Recibido en Cola {}, Evento Id: {}, Mensaje: {}", JMSQueueNames.AGENCY_ORCHESTATOR_QUEUE, event.getEventId(), event.getPayload());
                 EventHandler commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
                 if(commandHandler != null)
-                    commandHandler.handle(event.getData());
+                    commandHandler.handle(event.getPayload());
             }
         } catch (Exception e) {
             LOGGER.error("Error al recibir el mensaje: {}", e.getMessage());

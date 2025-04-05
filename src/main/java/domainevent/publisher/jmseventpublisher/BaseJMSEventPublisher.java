@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import msa.commons.consts.PropertiesConsumer;
 import msa.commons.event.Event;
 import msa.commons.event.EventId;
+import msa.commons.event.EventResponse;
 
 public abstract class BaseJMSEventPublisher implements IEventPublisher {
     private ConnectionFactory connectionFactory;
@@ -22,12 +23,12 @@ public abstract class BaseJMSEventPublisher implements IEventPublisher {
     private static final Logger LOGGER = LogManager.getLogger(BaseJMSEventPublisher.class);
 
     @Override
-    public void publish(EventId eventId, Object data) {
+    public void publish(EventId eventId, EventResponse eventResponse) {
         try (JMSContext jmsContext = connectionFactory.createContext()) {
-            Event sendMsg = new Event(eventId, data);
+            Event sendMsg = new Event(eventId, eventResponse);
             TextMessage txt = jmsContext.createTextMessage(this.gson.toJson(sendMsg));
             txt.setStringProperty(PropertiesConsumer.ORIGIN_QUEUE, this.getQueueName());
-            LOGGER.info("Publicando en Cola {}, Evento Id: {}, Mensaje: {}", this.getQueueName(), eventId, data);
+            LOGGER.info("Publicando en Cola {}, Evento Id: {}, Mensaje: {}", this.getQueueName(), eventId, eventResponse);
             jmsContext.createProducer().send(this.queue, txt);
         } catch (Exception e) {
             LOGGER.error("Error al publiar el mensaje: {}", e.getMessage());
