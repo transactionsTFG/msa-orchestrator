@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import domainevent.command.handler.EventHandler;
 import domainevent.registry.EventHandlerRegistry;
 import msa.commons.consts.JMSQueueNames;
+import msa.commons.consts.PropertiesConsumer;
 import msa.commons.event.Event;
 
 @MessageDriven(mappedName = JMSQueueNames.AGENCY_ORCHESTATOR_QUEUE)
