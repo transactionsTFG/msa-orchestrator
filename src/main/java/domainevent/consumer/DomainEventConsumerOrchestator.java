@@ -9,26 +9,32 @@ import javax.jms.TextMessage;
 
 import com.google.gson.Gson;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import domainevent.command.handler.EventHandler;
 import domainevent.registry.EventHandlerRegistry;
+import integration.consts.JMSQueueNames;
 import msa.commons.event.Event;
 
-@MessageDriven(mappedName = "jms/orchestatorQueue")
+@MessageDriven(mappedName = JMSQueueNames.ORCHESTATOR_QUEUE)
 public class DomainEventConsumerOrchestator implements MessageListener {
     private Gson gson;
     private EventHandlerRegistry eventHandlerRegistry;
+    private static final Logger LOGGER = LogManager.getLogger(DomainEventConsumerOrchestator.class);
 
     @Override
     public void onMessage(Message msg) {
          try {
             if(msg instanceof TextMessage m) {
                 Event event = this.gson.fromJson(m.getText(), Event.class);
+                LOGGER.info("Recibido en Cola {}, Evento Id: {}, Mensaje: {}", JMSQueueNames.ORCHESTATOR_QUEUE, event.getEventId(), event.getData());
                 EventHandler commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
                 if(commandHandler != null)
                     commandHandler.handle(event.getData());
             }
         } catch (Exception e) {
-            System.out.println("Error al recibir el mensaje: " + e.getMessage());
+            LOGGER.error("Error al recibir el mensaje: {}", e.getMessage());
         }
     }
 

@@ -4,7 +4,9 @@ integration\producer\GsonProducer.class
 domainevent\consumer\DomainEventConsumerOrchestator.class
 domainevent\publisher\typeuserqueue\JMSTypeUserPublisherQualifier.class
 domainevent\command\user\CommitUserEvent.class
+domainevent\publisher\jmseventpublisher\AbstractJMSEventPublisher.class
 integration\producer\ResourceProducer.class
+integration\consts\JMSQueueNames.class
 domainevent\publisher\userqueue\JMSUserPublisher.class
 domainevent\command\typeuser\GetTypeUserEvent.class
 domainevent\publisher\typeuserqueue\JMSTypeUserPublisher.class

@@ -1,43 +1,28 @@
 package domainevent.publisher.typeuserqueue;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
+
 import javax.jms.Queue;
 
-import com.google.gson.Gson;
-
-import domainevent.publisher.jmseventpublisher.IJMSEventPublisher;
+import domainevent.publisher.jmseventpublisher.BaseJMSEventPublisher;
+import domainevent.publisher.jmseventpublisher.IEventPublisher;
+import integration.consts.JMSQueueNames;
 import integration.producer.qualifiers.TypeUserQueue;
-import msa.commons.event.EventId;
-import msa.commons.event.Event;
 
 @Stateless
 @JMSTypeUserPublisherQualifier
-public class JMSTypeUserPublisher implements IJMSEventPublisher {
-    private ConnectionFactory connectionFactory;
-    private Queue typeUserServiceQueue;
-    private Gson gson;
+@Local(IEventPublisher.class)
+public class JMSTypeUserPublisher extends BaseJMSEventPublisher {
+    @Inject
+    @Override
+    public void setQueueInject(@TypeUserQueue Queue typeUserServiceQueue) {
+        this.queue = typeUserServiceQueue;
+    }
 
     @Override
-    public void publish(EventId eventId, Object data){
-        try(JMSContext jmsContext = connectionFactory.createContext()) {
-            Event sendMsg = new Event(eventId, data);
-            jmsContext.createProducer().send(this.typeUserServiceQueue, this.gson.toJson(sendMsg));
-        }
-    }
-
-    @Inject
-    public void setConnectionFactory(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
-    @Inject
-    public void setTypeUserServiceQueue(@TypeUserQueue Queue typeUserServiceQueue) {
-        this.typeUserServiceQueue = typeUserServiceQueue;
-    }
-    @Inject
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public String getQueueName() {
+        return JMSQueueNames.TYPE_USER_SERVICE_QUEUE;
     }
 }

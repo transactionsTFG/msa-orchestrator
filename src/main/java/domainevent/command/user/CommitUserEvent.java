@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import domainevent.command.handler.EventHandler;
-import domainevent.publisher.jmseventpublisher.IJMSEventPublisher;
+import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import domainevent.publisher.userqueue.JMSUserPublisherQualifier;
 import msa.commons.event.EventId;
 import msa.commons.microservices.user.qualifier.CommitUserQualifier;
@@ -12,7 +12,7 @@ import msa.commons.microservices.user.qualifier.CommitUserQualifier;
 @Stateless
 @CommitUserQualifier
 public class CommitUserEvent implements EventHandler {
-    private IJMSEventPublisher jmsEventDispatcher;
+    private IEventPublisher jmsEventDispatcher;
 
     @Override
     public void handle(Object event) {
@@ -20,7 +20,7 @@ public class CommitUserEvent implements EventHandler {
     }
     
     @Inject
-    public void setJmsEventDispatcher(@JMSUserPublisherQualifier IJMSEventPublisher jmsEventDispatcher) {
+    public void setJmsEventDispatcher(@JMSUserPublisherQualifier IEventPublisher jmsEventDispatcher) {
         this.jmsEventDispatcher = jmsEventDispatcher;
     }
 }
