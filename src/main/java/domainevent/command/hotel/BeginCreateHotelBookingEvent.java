@@ -4,7 +4,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import business.qualifier.CreateHotelBookingEventQualifier;
+import business.qualifier.BeginCreateHotelBookingEventQualifier;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.EventHandler;
 import domainevent.publisher.hotel.JMSHotelBookingPublisherQualifier;
@@ -15,11 +15,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Stateless
-@CreateHotelBookingEventQualifier
+@BeginCreateHotelBookingEventQualifier
 @Local(EventHandler.class)
-public class CreateHotelBookingEvent extends BaseEventHandler {
+public class BeginCreateHotelBookingEvent extends BaseEventHandler {
 
-    private static final Logger LOGGER = LogManager.getLogger(CreateHotelBookingEvent.class);
+    private static final Logger LOGGER = LogManager.getLogger(BeginCreateHotelBookingEvent.class);
 
     @Inject
     @Override

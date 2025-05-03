@@ -30,11 +30,11 @@ public class ResourceProducer {
     @Produces
     @Resource(lookup = JMSQueueNames.HOTEL_BOOKING_QUEUE)
     @HotelQueue
-    private Queue hotelQueue;
+    private Queue hotelBookingQueue;
 
     @Produces
     @Resource(lookup = JMSQueueNames.AIRLINE_RESERVATION_QUEUE)
     @AirlineQueue
-    private Queue airlineQueue;
+    private Queue reservationQueue;
 
 }
