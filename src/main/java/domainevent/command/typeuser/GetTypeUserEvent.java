@@ -4,12 +4,12 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import business.qualifier.GetTypeQualifierV2;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.EventHandler;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import domainevent.publisher.typeuserqueue.JMSTypeUserPublisherQualifier;
 import msa.commons.event.EventId;
-import msa.commons.microservices.typeuser.qualifier.GetTypeQualifierV2;
 
 @Stateless
 @GetTypeQualifierV2

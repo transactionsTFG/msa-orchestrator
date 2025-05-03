@@ -5,12 +5,12 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import business.qualifier.CommitUserQualifier;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.EventHandler;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import domainevent.publisher.userqueue.JMSUserPublisherQualifier;
 import msa.commons.event.EventId;
-import msa.commons.microservices.user.qualifier.CommitUserQualifier;
 
 @Stateless
 @CommitUserQualifier

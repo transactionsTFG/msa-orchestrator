@@ -2,6 +2,7 @@ package domainevent.command.airline;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import business.qualifier.CreateAirlineReservationEventQualifier;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.EventHandler;
+import domainevent.publisher.airline.JMSAirlineReservationPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
 
@@ -19,8 +21,9 @@ public class CreateAirlineReservationEvent extends BaseEventHandler {
 
     private static final Logger LOGGER = LogManager.getLogger(CreateAirlineReservationEvent.class);
 
+    @Inject
     @Override
-    public void setJmsEventDispatcher(IEventPublisher jmsEventDispatcher) {
+    public void setJmsEventDispatcher(@JMSAirlineReservationPublisherQualifier IEventPublisher jmsEventDispatcher) {
         this.jmsEventDispatcher = jmsEventDispatcher;
     }
 

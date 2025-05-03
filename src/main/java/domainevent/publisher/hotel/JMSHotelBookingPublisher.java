@@ -7,7 +7,7 @@ import javax.jms.Queue;
 
 import domainevent.publisher.jmseventpublisher.BaseJMSEventPublisher;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
-import integration.producer.qualifiers.HotelBookingQueue;
+import integration.producer.qualifiers.HotelQueue;
 import msa.commons.consts.JMSQueueNames;
 
 @Stateless
@@ -17,7 +17,7 @@ public class JMSHotelBookingPublisher extends BaseJMSEventPublisher {
 
     @Override
     @Inject
-    public void setQueueInject(@HotelBookingQueue Queue queueInject) {
+    public void setQueueInject(@HotelQueue Queue queueInject) {
         this.queue = queueInject;
     }
 

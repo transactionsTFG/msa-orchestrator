@@ -8,11 +8,11 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
+import business.qualifier.CommitUserQualifier;
+import business.qualifier.GetTypeQualifierV2;
+import business.qualifier.RollbackUserQualifier;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
-import msa.commons.microservices.typeuser.qualifier.GetTypeQualifierV2;
-import msa.commons.microservices.user.qualifier.CommitUserQualifier;
-import msa.commons.microservices.user.qualifier.RollbackUserQualifier;
 
 @Singleton
 @Startup
@@ -23,7 +23,7 @@ public class EventHandlerRegistry {
     private EventHandler rollbackUserEventHandler;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         this.handlers.put(EventId.VALIDATE_TYPE_USER, validateTypeUserHandler);
         this.handlers.put(EventId.CREATE_USER, commitUserEventHandler);
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
