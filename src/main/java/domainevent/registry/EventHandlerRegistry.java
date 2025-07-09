@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import business.qualifier.CommitUserQualifier;
 import business.qualifier.GetTypeQualifierV2;
 import business.qualifier.RollbackUserQualifier;
+import business.user.ValidateUserQualifier;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
 
@@ -21,12 +22,15 @@ public class EventHandlerRegistry {
     private EventHandler validateTypeUserHandler;
     private EventHandler commitUserEventHandler;
     private EventHandler rollbackUserEventHandler;
+    private EventHandler validateUserHandler;
 
     @PostConstruct
     public void init() {
         this.handlers.put(EventId.VALIDATE_TYPE_USER, validateTypeUserHandler);
         this.handlers.put(EventId.CREATE_USER, commitUserEventHandler);
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
+        /*Create Reservation Airline */
+        this.handlers.put(EventId.VALIDATE_USER, validateUserHandler);
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -48,4 +52,8 @@ public class EventHandlerRegistry {
         this.rollbackUserEventHandler = rollbackUserEventHandler;
     }
 
+    @Inject
+    public void setValidateUserHandler(@ValidateUserQualifier EventHandler validateUserCreateReservationAirlineHandler) {
+        this.validateUserHandler = validateUserCreateReservationAirlineHandler;
+    }
 }
