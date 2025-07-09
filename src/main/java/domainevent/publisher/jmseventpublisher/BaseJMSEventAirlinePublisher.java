@@ -12,25 +12,24 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 
 import business.qualifier.cf.ConnectionFactoryAirlineQualifier;
-import business.qualifier.cf.ConnectionFactoryLocalQualifier;
 import msa.commons.consts.PropertiesConsumer;
 import msa.commons.event.Event;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 
-public abstract class BaseJMSEventPublisher implements IEventPublisher {
+public abstract class BaseJMSEventAirlinePublisher implements IEventPublisher {
     private ConnectionFactory connectionFactory;
     private Gson gson;
     protected Queue queue;
-    private static final Logger LOGGER = LogManager.getLogger(BaseJMSEventPublisher.class);
-
+    private static final Logger LOGGER = LogManager.getLogger(BaseJMSEventAirlinePublisher.class);
+    
     @Override
     public void publish(EventId eventId, Object data) {
         try (JMSContext jmsContext = connectionFactory.createContext()) {
             Event sendMsg = new Event(eventId, (EventData) data);
             TextMessage txt = jmsContext.createTextMessage(this.gson.toJson(sendMsg));
             txt.setStringProperty(PropertiesConsumer.ORIGIN_QUEUE, this.getQueueName());
-            LOGGER.info("Publicando en Cola {}, Evento Id: {}, Mensaje: {}", this.getQueueName(), eventId, data);
+            LOGGER.info("Publicando en Orquestador Aerolinea {}, Evento Id: {}, Mensaje: {}", this.getQueueName(), eventId, data);
             jmsContext.createProducer().send(this.queue, txt);
         } catch (Exception e) {
             LOGGER.error("Error al publiar el mensaje: {}", e.getMessage());
@@ -38,8 +37,8 @@ public abstract class BaseJMSEventPublisher implements IEventPublisher {
     }
 
     @Inject
-    public void setConnectionFactoryAirline(@ConnectionFactoryLocalQualifier ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
+    public void setConnectionFactoryAirline(@ConnectionFactoryAirlineQualifier ConnectionFactory connectionFactoryAirline) {
+        this.connectionFactory = connectionFactoryAirline;
     }
 
     @Inject
@@ -49,5 +48,4 @@ public abstract class BaseJMSEventPublisher implements IEventPublisher {
 
     public abstract void setQueueInject(Queue queueInject);
     public abstract String getQueueName();
-   
 }

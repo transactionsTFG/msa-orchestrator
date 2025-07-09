@@ -6,6 +6,8 @@ import javax.enterprise.inject.Produces;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 
+import business.qualifier.cf.ConnectionFactoryAirlineQualifier;
+import business.qualifier.cf.ConnectionFactoryLocalQualifier;
 import integration.producer.qualifiers.OrchestratorAirlineQueue;
 import integration.producer.qualifiers.TypeUserQueue;
 import integration.producer.qualifiers.UserQueue;
@@ -14,8 +16,14 @@ import msa.commons.consts.JMSQueueNames;
 @ApplicationScoped
 public class ResourceProducer {
     @Produces
-    @Resource(lookup = "jms/connectionFactory")
+    @ConnectionFactoryLocalQualifier
+    @Resource(lookup = JMSQueueNames.CONNECTION_FACTORY_LOCAL)
     private ConnectionFactory connectionFactory;
+
+    @Produces
+    @ConnectionFactoryAirlineQualifier
+    @Resource(lookup = JMSQueueNames.CONNECTION_FACTORY_AIRLINE)
+    private ConnectionFactory connectionFactoryAirline;
 
     @Produces
     @Resource(lookup = JMSQueueNames.AGENCY_TYPE_USER_SERVICE_QUEUE)
