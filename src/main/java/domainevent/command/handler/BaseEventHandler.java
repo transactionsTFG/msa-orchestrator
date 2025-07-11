@@ -12,7 +12,7 @@ public abstract class BaseEventHandler implements EventHandler {
     protected Gson gson;
 
     @Override
-    public void handle(Object data) {
+    public void handle(String data) {
         this.jmsEventDispatcher.publish(this.getEventId(), data);
     }
 

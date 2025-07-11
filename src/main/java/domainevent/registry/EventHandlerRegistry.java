@@ -9,8 +9,7 @@ import javax.ejb.Startup;
 import javax.inject.Inject;
 
 import business.qualifier.CommitUserQualifier;
-import business.qualifier.CreateAirlineReservationCommitEventQualifier;
-import business.qualifier.CreateAirlineReservationRollbackEventQualifier;
+import business.qualifier.CreateAirlineReservationEventQualifier;
 import business.qualifier.GetTypeQualifierV2;
 import business.qualifier.RollbackUserQualifier;
 import business.reservation.ReservationBeginQualifier;
@@ -26,9 +25,9 @@ public class EventHandlerRegistry {
     private EventHandler commitUserEventHandler;
     private EventHandler rollbackUserEventHandler;
     private EventHandler validateUserHandler;
+    private EventHandler creteReservationHandler; //Evento de Crear Reserva
+
     private EventHandler reservationAirlineCreateReservationBeginSagaHandler;
-    private EventHandler reservationOnlyAirlineCreateReservationCommitHandler;
-    private EventHandler reservationOnlyAirlineCreateReservationRollbackHandler;
 
     @PostConstruct
     public void init() {
@@ -36,9 +35,9 @@ public class EventHandlerRegistry {
         this.handlers.put(EventId.CREATE_USER, commitUserEventHandler);
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
         this.handlers.put(EventId.VALIDATE_USER, validateUserHandler); //Evento de Validar Usuario
+        this.handlers.put(EventId.CREATE_RESERVATION_TRAVEL, creteReservationHandler);
+
         this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_BEGIN_SAGA, reservationAirlineCreateReservationBeginSagaHandler); //Evento de Iniciar Saga de Reserva de Vuelo
-        this.handlers.put(EventId.CREATE_RESERVATION_TRAVEL_ONLY_AIRLINE_COMMIT, reservationOnlyAirlineCreateReservationCommitHandler); //Evento de Confirmar Reserva de Vuelo
-        this.handlers.put(EventId.CREATE_RESERVATION_TRAVEL_ONLY_AIRLINE_ROLLBACK, reservationOnlyAirlineCreateReservationRollbackHandler); //Evento de Cancelar Reserva de Vuelo
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -71,14 +70,7 @@ public class EventHandlerRegistry {
     }
 
     @Inject
-    public void setReservationOnlyAirlineCreateReservationCommitHandler(@CreateAirlineReservationCommitEventQualifier EventHandler reservationOnlyAirlineCreateReservationCommitHandler) {
-        this.reservationOnlyAirlineCreateReservationCommitHandler = reservationOnlyAirlineCreateReservationCommitHandler;
+    public void setCreteReservationHandler(@CreateAirlineReservationEventQualifier EventHandler creteReservationHandler) {
+        this.creteReservationHandler = creteReservationHandler;
     }
-
-    @Inject
-    public void setReservationOnlyAirlineCreateReservationRollbackHandler(@CreateAirlineReservationRollbackEventQualifier EventHandler reservationOnlyAirlineCreateReservationRollbackHandler) {
-        this.reservationOnlyAirlineCreateReservationRollbackHandler = reservationOnlyAirlineCreateReservationRollbackHandler;
-    }
-
-
 }
