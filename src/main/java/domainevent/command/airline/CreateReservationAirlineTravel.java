@@ -43,7 +43,7 @@ public class CreateReservationAirlineTravel extends BaseEventHandler {
 
     @Override
     public EventId getEventId() {
-        return EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_BEGIN_SAGA;
+        return EventId.CREATE_RESERVATION_TRAVEL;
     }
     
 }
