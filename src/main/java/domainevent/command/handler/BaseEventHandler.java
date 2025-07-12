@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
+import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 
 public abstract class BaseEventHandler implements EventHandler {
@@ -13,7 +14,7 @@ public abstract class BaseEventHandler implements EventHandler {
 
     @Override
     public void handle(String data) {
-        this.jmsEventDispatcher.publish(this.getEventId(), data);
+        this.jmsEventDispatcher.publish(this.getEventId(), EventData.fromJson(data, Object.class));
     }
 
     @Inject 

@@ -24,9 +24,9 @@ public abstract class BaseJMSEventAirlinePublisher implements IEventPublisher {
     private static final Logger LOGGER = LogManager.getLogger(BaseJMSEventAirlinePublisher.class);
     
     @Override
-    public void publish(EventId eventId, Object data) {
+    public void publish(EventId eventId, EventData data) {
         try (JMSContext jmsContext = connectionFactory.createContext()) {
-            Event sendMsg = new Event(eventId, (EventData) data);
+            Event sendMsg = new Event(eventId, data);
             TextMessage txt = jmsContext.createTextMessage(this.gson.toJson(sendMsg));
             txt.setStringProperty(PropertiesConsumer.ORIGIN_QUEUE, this.getQueueName());
             LOGGER.info("Publicando en Orquestador Aerolinea {}, Evento Id: {}, Mensaje: {}", this.getQueueName(), eventId, data);
