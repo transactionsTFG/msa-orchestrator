@@ -4,7 +4,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import business.reservation.ReservationBeginQualifier;
+import business.qualifier.CreateAirlineReservationEventQualifier;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.EventHandler;
 import domainevent.publisher.arilineorchestratorqueue.JMSOrchestratorAirlinePublisherQualifier;
@@ -16,7 +16,7 @@ import msa.commons.event.eventoperation.reservation.ReservationAirline;
 
 
 @Stateless
-@ReservationBeginQualifier
+@CreateAirlineReservationEventQualifier
 @Local(EventHandler.class)
 public class CreateReservationAirlineTravel extends BaseEventHandler {
     private IEventPublisher jmsEventDispatcherAirline;

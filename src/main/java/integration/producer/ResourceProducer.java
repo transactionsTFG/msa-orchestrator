@@ -10,6 +10,7 @@ import business.qualifier.cf.ConnectionFactoryAirlineQualifier;
 import business.qualifier.cf.ConnectionFactoryLocalQualifier;
 import integration.producer.qualifiers.OrchestratorAirlineQueue;
 import integration.producer.qualifiers.TypeUserQueue;
+import integration.producer.qualifiers.TravelQueue;
 import integration.producer.qualifiers.UserQueue;
 import msa.commons.consts.JMSQueueNames;
 
@@ -39,4 +40,9 @@ public class ResourceProducer {
     @OrchestratorAirlineQueue
     private Queue orchestratorAirlineQueue;
 
+
+    @Produces
+    @Resource(lookup = JMSQueueNames.AGENCY_TRAVEL_SERVICE_QUEUE)
+    @TravelQueue
+    private Queue travelQueue;
 }

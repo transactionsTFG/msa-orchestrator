@@ -12,7 +12,6 @@ import business.qualifier.CommitUserQualifier;
 import business.qualifier.CreateAirlineReservationEventQualifier;
 import business.qualifier.GetTypeQualifierV2;
 import business.qualifier.RollbackUserQualifier;
-import business.reservation.ReservationBeginQualifier;
 import business.user.ValidateUserQualifier;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
