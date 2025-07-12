@@ -27,8 +27,6 @@ public class EventHandlerRegistry {
     private EventHandler validateUserHandler;
     private EventHandler creteReservationHandler; //Evento de Crear Reserva
 
-    private EventHandler reservationAirlineCreateReservationBeginSagaHandler;
-
     @PostConstruct
     public void init() {
         this.handlers.put(EventId.VALIDATE_TYPE_USER, validateTypeUserHandler);
@@ -36,8 +34,6 @@ public class EventHandlerRegistry {
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
         this.handlers.put(EventId.VALIDATE_USER, validateUserHandler); //Evento de Validar Usuario
         this.handlers.put(EventId.CREATE_RESERVATION_TRAVEL, creteReservationHandler);
-
-        this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_BEGIN_SAGA, reservationAirlineCreateReservationBeginSagaHandler); //Evento de Iniciar Saga de Reserva de Vuelo
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -64,10 +60,6 @@ public class EventHandlerRegistry {
         this.validateUserHandler = validateUserCreateReservationAirlineHandler;
     }
 
-    @Inject
-    public void setReservationAirlineCreateReservationBeginSagaHandler(@ReservationBeginQualifier EventHandler reservationAirlineCreateReservationBeginSagaHandler) {
-        this.reservationAirlineCreateReservationBeginSagaHandler = reservationAirlineCreateReservationBeginSagaHandler;
-    }
 
     @Inject
     public void setCreteReservationHandler(@CreateAirlineReservationEventQualifier EventHandler creteReservationHandler) {
