@@ -25,6 +25,6 @@ public class JMSAirlineOrchestratorPublisher extends BaseJMSEventAirlinePublishe
 
     @Override
     public String getQueueName() {
-        return JMSQueueNames.ORCHESTRATOR_AIRLINE_QUEUE;
+        return JMSQueueNames.REMOTE_ORCHESTRATOR_AIRLINE_QUEUE;
     }
 }

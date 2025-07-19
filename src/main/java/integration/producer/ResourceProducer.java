@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSContext;
 import javax.jms.Queue;
 
 import business.qualifier.cf.ConnectionFactoryAirlineQualifier;
@@ -36,7 +37,7 @@ public class ResourceProducer {
     private Queue userServiceQueue;
     
     @Produces
-    @Resource(lookup = JMSQueueNames.ORCHESTRATOR_AIRLINE_QUEUE)
+    @Resource(lookup = JMSQueueNames.REMOTE_ORCHESTRATOR_AIRLINE_QUEUE)
     @OrchestratorAirlineQueue
     private Queue orchestratorAirlineQueue;
 
