@@ -11,8 +11,6 @@ import domainevent.publisher.arilineorchestratorqueue.JMSOrchestratorAirlinePubl
 import domainevent.publisher.hotelorchestratorqueue.JMSHotelOrchestratorPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import domainevent.publisher.travelqueue.JMSTravelPublisherQualifier;
-import msa.commons.commands.createreservation.CreateReservationCommand;
-import msa.commons.commands.travel.CreateTravelCommand;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 import msa.commons.event.eventoperation.reservation.CreateReservation;
@@ -34,18 +32,8 @@ public class CreateReservationTravel extends BaseEventHandler {
         if (CreateReservation.CREATE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation())) 
             this.jmsEventDispatcherHotel.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
 
-        if (CreateReservation.CREATE_RESERVATION_AIRLINE_HOTEL_BEGIN.equals(data.getOperation())) {
-            EventData e = EventData.fromJson(json, CreateTravelCommand.class);
-                    CreateTravelCommand c = (CreateTravelCommand) e.getData();
-            data.setData(c.getCreateReservationCommand());
-            this.jmsEventDispatcherHotel.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
-            data.setData(c.getCreateHotelBookingCommand());
-            this.jmsEventDispatcherAirline.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
-        }
-        
         if (!CreateReservation.CREATE_RESERVATION_ONLY_AIRLINE_BEGIN.equals(data.getOperation()) && 
-            !CreateReservation.CREATE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation()) && 
-            !CreateReservation.CREATE_RESERVATION_AIRLINE_HOTEL_BEGIN.equals(data.getOperation()))
+            !CreateReservation.CREATE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation()))
             this.jmsEventDispatcher.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
     }
 
