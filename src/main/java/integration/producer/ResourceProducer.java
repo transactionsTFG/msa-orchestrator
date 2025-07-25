@@ -10,6 +10,7 @@ import javax.jms.Queue;
 import business.qualifier.cf.ConnectionFactoryAirlineQualifier;
 import business.qualifier.cf.ConnectionFactoryLocalQualifier;
 import integration.producer.qualifiers.OrchestratorAirlineQueue;
+import integration.producer.qualifiers.OrchestratorHotelQueue;
 import integration.producer.qualifiers.TypeUserQueue;
 import integration.producer.qualifiers.TravelQueue;
 import integration.producer.qualifiers.UserQueue;
@@ -40,6 +41,11 @@ public class ResourceProducer {
     @Resource(lookup = JMSQueueNames.REMOTE_ORCHESTRATOR_AIRLINE_QUEUE)
     @OrchestratorAirlineQueue
     private Queue orchestratorAirlineQueue;
+
+    @Produces
+    @Resource(lookup = JMSQueueNames.REMOTE_ORCHESTRATOR_HOTEL_QUEUE)
+    @OrchestratorHotelQueue
+    private Queue orchestratorHotelQueue;
 
 
     @Produces
