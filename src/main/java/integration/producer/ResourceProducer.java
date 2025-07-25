@@ -8,6 +8,7 @@ import javax.jms.JMSContext;
 import javax.jms.Queue;
 
 import business.qualifier.cf.ConnectionFactoryAirlineQualifier;
+import business.qualifier.cf.ConnectionFactoryHotelQualifier;
 import business.qualifier.cf.ConnectionFactoryLocalQualifier;
 import integration.producer.qualifiers.OrchestratorAirlineQueue;
 import integration.producer.qualifiers.OrchestratorHotelQueue;
@@ -27,6 +28,11 @@ public class ResourceProducer {
     @ConnectionFactoryAirlineQualifier
     @Resource(lookup = JMSQueueNames.CONNECTION_FACTORY_AIRLINE)
     private ConnectionFactory connectionFactoryAirline;
+
+    @Produces
+    @ConnectionFactoryHotelQualifier
+    @Resource(lookup = JMSQueueNames.CONNECTION_FACTORY_HOTEL)
+    private ConnectionFactory connectionFactoryHotel;
 
     @Produces
     @Resource(lookup = JMSQueueNames.AGENCY_TYPE_USER_SERVICE_QUEUE)
