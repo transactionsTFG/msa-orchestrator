@@ -10,6 +10,8 @@ import javax.inject.Inject;
 
 import business.qualifier.CommitUserQualifier;
 import business.qualifier.CreateAirlineReservationEventQualifier;
+import business.qualifier.CreateRollbackAirlineReservationEventQualifier;
+import business.qualifier.CreateRollbackHotelReservationEventQualifier;
 import business.qualifier.GetTypeQualifierV2;
 import business.qualifier.RollbackUserQualifier;
 import business.user.ValidateUserQualifier;
@@ -25,6 +27,8 @@ public class EventHandlerRegistry {
     private EventHandler rollbackUserEventHandler;
     private EventHandler validateUserHandler;
     private EventHandler creteReservationHandler; //Evento de Crear Reserva
+    private EventHandler rollbackCreateReservationHotelHandler;
+    private EventHandler rollbackCreateReservationAirlineHandler;
 
     @PostConstruct
     public void init() {
@@ -33,6 +37,8 @@ public class EventHandlerRegistry {
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
         this.handlers.put(EventId.VALIDATE_USER, validateUserHandler); //Evento de Validar Usuario
         this.handlers.put(EventId.CREATE_RESERVATION_TRAVEL, creteReservationHandler);
+        this.handlers.put(EventId.ROLLBACK_CREATE_HOTEL_BOOKING, rollbackCreateReservationHotelHandler);
+        this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, rollbackCreateReservationAirlineHandler);
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -63,5 +69,15 @@ public class EventHandlerRegistry {
     @Inject
     public void setCreteReservationHandler(@CreateAirlineReservationEventQualifier EventHandler creteReservationHandler) {
         this.creteReservationHandler = creteReservationHandler;
+    }
+
+    @Inject
+    public void setRollbackCreateReservationHotelHandler(@CreateRollbackHotelReservationEventQualifier EventHandler rollbackCreateReservationHotelHandler) {
+        this.rollbackCreateReservationHotelHandler = rollbackCreateReservationHotelHandler;
+    }
+
+    @Inject
+    public void setRollbackCreateReservationAirlineHandler(@CreateRollbackAirlineReservationEventQualifier EventHandler rollbackCreateReservationAirlineHandler) {
+        this.rollbackCreateReservationAirlineHandler = rollbackCreateReservationAirlineHandler;
     }
 }

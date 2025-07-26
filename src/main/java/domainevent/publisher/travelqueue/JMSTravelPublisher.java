@@ -23,6 +23,6 @@ public class JMSTravelPublisher extends BaseJMSEventPublisher {
 
     @Override
     public String getQueueName() {
-        return JMSQueueNames.AGENCY_TYPE_USER_SERVICE_QUEUE;
+        return JMSQueueNames.AGENCY_TRAVEL_SERVICE_QUEUE;
     }
 }

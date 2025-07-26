@@ -31,7 +31,7 @@ public class CreateReservationTravel extends BaseEventHandler {
 
         if (CreateReservation.CREATE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation())) 
             this.jmsEventDispatcherHotel.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
-
+ 
         if (!CreateReservation.CREATE_RESERVATION_ONLY_AIRLINE_BEGIN.equals(data.getOperation()) && 
             !CreateReservation.CREATE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation()))
             this.jmsEventDispatcher.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
