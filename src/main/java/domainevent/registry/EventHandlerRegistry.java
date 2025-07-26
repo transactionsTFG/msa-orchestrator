@@ -17,6 +17,9 @@ import business.qualifier.RemoveReservationAirlineRollbackQualifier;
 import business.qualifier.RemoveReservationEventQualifier;
 import business.qualifier.RemoveReservationHotelRollbackQualifier;
 import business.qualifier.RollbackUserQualifier;
+import business.qualifier.UpdateReservationAirlineRollbackQualifier;
+import business.qualifier.UpdateReservationEventQualifier;
+import business.qualifier.UpdateReservationHotelRollbackQualifier;
 import business.user.ValidateUserQualifier;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
@@ -37,6 +40,10 @@ public class EventHandlerRegistry {
     private EventHandler removeReservationAirlineRollbackHandler;
     private EventHandler removeReservationHotelRollbackHandler;
 
+    private EventHandler updateReservationHandler;
+    private EventHandler rollbackUpdateReservationAirlineHandler;
+    private EventHandler rollbackUpdateReservationHotelHandler;
+
     @PostConstruct
     public void init() {
         this.handlers.put(EventId.VALIDATE_TYPE_USER, validateTypeUserHandler);
@@ -51,6 +58,10 @@ public class EventHandlerRegistry {
         this.handlers.put(EventId.REMOVE_RESERVATION_TRAVEL, removeReservationHandler);
         this.handlers.put(EventId.RESERVATION_AIRLINE_REMOVE_RESERVATION_ROLLBACK_SAGA, removeReservationAirlineRollbackHandler);
         this.handlers.put(EventId.ROLLBACK_CREATE_HOTEL_BOOKING, removeReservationHotelRollbackHandler);
+
+        this.handlers.put(EventId.UPDATE_RESERVATION_TRAVEL, updateReservationHandler);
+        this.handlers.put(EventId.RESERVATION_AIRLINE_MODIFY_RESERVATION_ROLLBACK_SAGA, rollbackUpdateReservationAirlineHandler);
+        this.handlers.put(EventId.ROLLBACK_UPDATE_HOTEL_BOOKING, rollbackUpdateReservationHotelHandler);
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -107,4 +118,20 @@ public class EventHandlerRegistry {
         this.removeReservationHotelRollbackHandler = removeReservationHotelRollbackHandler;
     }
     
+    @Inject
+    public void setUpdateReservationHandler(@UpdateReservationEventQualifier EventHandler updateReservationHandler) {
+        this.updateReservationHandler = updateReservationHandler;
+    }
+
+    @Inject
+    public void setRollbackUpdateReservationAirlineHandler(@UpdateReservationAirlineRollbackQualifier EventHandler rollbackUpdateReservationAirlineHandler) {
+        this.rollbackUpdateReservationAirlineHandler = rollbackUpdateReservationAirlineHandler;
+    }
+
+    @Inject
+    public void setRollbackUpdateReservationHotelHandler(@UpdateReservationHotelRollbackQualifier EventHandler rollbackUpdateReservationHotelHandler) {
+        this.rollbackUpdateReservationHotelHandler = rollbackUpdateReservationHotelHandler;
+    }
+
 }
+    
