@@ -13,6 +13,9 @@ import business.qualifier.CreateAirlineReservationEventQualifier;
 import business.qualifier.CreateRollbackAirlineReservationEventQualifier;
 import business.qualifier.CreateRollbackHotelReservationEventQualifier;
 import business.qualifier.GetTypeQualifierV2;
+import business.qualifier.RemoveReservationAirlineRollbackQualifier;
+import business.qualifier.RemoveReservationEventQualifier;
+import business.qualifier.RemoveReservationHotelRollbackQualifier;
 import business.qualifier.RollbackUserQualifier;
 import business.user.ValidateUserQualifier;
 import domainevent.command.handler.EventHandler;
@@ -30,15 +33,24 @@ public class EventHandlerRegistry {
     private EventHandler rollbackCreateReservationHotelHandler;
     private EventHandler rollbackCreateReservationAirlineHandler;
 
+    private EventHandler removeReservationHandler;
+    private EventHandler removeReservationAirlineRollbackHandler;
+    private EventHandler removeReservationHotelRollbackHandler;
+
     @PostConstruct
     public void init() {
         this.handlers.put(EventId.VALIDATE_TYPE_USER, validateTypeUserHandler);
         this.handlers.put(EventId.CREATE_USER, commitUserEventHandler);
         this.handlers.put(EventId.FAILED_USER, rollbackUserEventHandler);
         this.handlers.put(EventId.VALIDATE_USER, validateUserHandler); //Evento de Validar Usuario
+
         this.handlers.put(EventId.CREATE_RESERVATION_TRAVEL, creteReservationHandler);
         this.handlers.put(EventId.ROLLBACK_CREATE_HOTEL_BOOKING, rollbackCreateReservationHotelHandler);
         this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, rollbackCreateReservationAirlineHandler);
+
+        this.handlers.put(EventId.REMOVE_RESERVATION_TRAVEL, removeReservationHandler);
+        this.handlers.put(EventId.RESERVATION_AIRLINE_REMOVE_RESERVATION_ROLLBACK_SAGA, removeReservationAirlineRollbackHandler);
+        this.handlers.put(EventId.ROLLBACK_CREATE_HOTEL_BOOKING, removeReservationHotelRollbackHandler);
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -80,4 +92,19 @@ public class EventHandlerRegistry {
     public void setRollbackCreateReservationAirlineHandler(@CreateRollbackAirlineReservationEventQualifier EventHandler rollbackCreateReservationAirlineHandler) {
         this.rollbackCreateReservationAirlineHandler = rollbackCreateReservationAirlineHandler;
     }
+
+    @Inject
+    public void setRemoveReservationHandler(@RemoveReservationEventQualifier EventHandler removeReservationHandler) {
+        this.removeReservationHandler = removeReservationHandler;
+    }
+    @Inject
+    public void setRemoveReservationAirlineRollbackHandler(@RemoveReservationAirlineRollbackQualifier EventHandler removeReservationAirlineRollbackHandler) {
+        this.removeReservationAirlineRollbackHandler = removeReservationAirlineRollbackHandler;
+    }
+
+    @Inject
+    public void setRemoveReservationHotelRollbackHandler(@RemoveReservationHotelRollbackQualifier EventHandler removeReservationHotelRollbackHandler) {
+        this.removeReservationHotelRollbackHandler = removeReservationHotelRollbackHandler;
+    }
+    
 }

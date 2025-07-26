@@ -1,11 +1,10 @@
-package domainevent.command.airline;
-
+package domainevent.command.travel.remove;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import business.qualifier.CreateRollbackAirlineReservationEventQualifier;
+import business.qualifier.RemoveReservationAirlineRollbackQualifier;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.EventHandler;
 import domainevent.publisher.arilineorchestratorqueue.JMSOrchestratorAirlinePublisherQualifier;
@@ -13,9 +12,9 @@ import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
 
 @Stateless
-@CreateRollbackAirlineReservationEventQualifier
+@RemoveReservationAirlineRollbackQualifier
 @Local(EventHandler.class)
-public class CreateReservationTravelAirlineRollback extends BaseEventHandler {
+public class RemoveReservationTravelAirlineRollback extends BaseEventHandler {
 
     @Override
     @Inject
@@ -25,7 +24,7 @@ public class CreateReservationTravelAirlineRollback extends BaseEventHandler {
 
     @Override
     public EventId getEventId() {
-        return EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA;
+        return EventId.RESERVATION_AIRLINE_REMOVE_RESERVATION_ROLLBACK_SAGA;
     }
-    
+
 }
