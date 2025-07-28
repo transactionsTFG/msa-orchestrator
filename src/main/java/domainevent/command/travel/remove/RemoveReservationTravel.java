@@ -27,14 +27,14 @@ public class RemoveReservationTravel  extends BaseEventHandler{
     public void handle(String json) {
         EventData data = this.gson.fromJson(json, EventData.class);
         if (DeleteReservation.DELETE_RESERVATION_ONLY_AIRLINE_BEGIN.equals(data.getOperation())) 
-            this.jmsEventDispatcherAirline.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
+            this.jmsEventDispatcherAirline.publish(EventId.REMOVE_RESERVATION_TRAVEL, data);
 
         if (DeleteReservation.DELETE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation())) 
-            this.jmsEventDispatcherHotel.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
+            this.jmsEventDispatcherHotel.publish(EventId.REMOVE_RESERVATION_TRAVEL, data);
 
         if (!DeleteReservation.DELETE_RESERVATION_ONLY_AIRLINE_BEGIN.equals(data.getOperation()) && 
             !DeleteReservation.DELETE_RESERVATION_ONLY_HOTEL_BEGIN.equals(data.getOperation()))
-            this.jmsEventDispatcher.publish(EventId.CREATE_RESERVATION_TRAVEL, data);
+            this.jmsEventDispatcher.publish(EventId.REMOVE_RESERVATION_TRAVEL, data);
     }
 
     @Inject
